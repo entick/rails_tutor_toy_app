@@ -9,10 +9,13 @@ class User < ApplicationRecord
             format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
 
-  validates :password, length: {minimum: 6}, presence: true
+  validates :password, length: {minimum: 6}, presence: true, allow_nil: true
 
   has_secure_password
+
+
   # Returns the hash digest of the given string.
+
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
